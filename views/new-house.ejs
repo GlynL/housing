@@ -1,0 +1,27 @@
+<%- include partials/header.ejs %>
+  <section class='container-fluid'>
+    <header class='jumbotron'>
+      <h1>List Your House</h1>
+    </header>
+  </section>
+  <section class='container new-house-form'>
+    <form action='/houses' method="post">
+      <div class='form-group'>
+        <label for='name'>Property Name</label>
+        <input type='text' class='form-control' id='name' name='name' placeholder='Enter your properties name.'>
+      </div>
+      <div class='form-group'>
+        <label for='description'>Property Decription</label>
+        <textarea type='text' class='form-control' id='description' name='description' placeholder='Give a brief overview of your property.'></textarea>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name='email' placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">Will only be used for contact from potential tenants and occasionally us.</small>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </section>
+
+<%- include partials/footer.ejs %>

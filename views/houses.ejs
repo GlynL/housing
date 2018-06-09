@@ -1,0 +1,52 @@
+<%- include partials/header.ejs %>
+
+<section class='houses-banner container-fluid'>
+  <header class='jumbotron'>
+    <h1>Houses for Rent</h1>
+  </header>
+</section>
+
+<section class='houses-list container'>
+  <% houses.forEach(house => { %>
+    <div class="card houses-list__item" style="width: 18rem;">
+      <img class="card-img-top" src="..." alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><%= house.name %></h5>
+        <p class="card-text"><%= house.description %></p>
+        <p><%= house.email %></p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>    
+  <% }); %>
+  <div class="card houses-list__item" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+
+  <div class="card houses-list__item" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+
+  <div class="card houses-list__item" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+
+
+
+</section>
+  
+<%- include partials/footer.ejs %>
