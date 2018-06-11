@@ -15,6 +15,9 @@ const houseSchema = new Schema({
     type: String,
     required: true
   },
+  thumbnail: {
+    type: String
+  },
   email: {
     type: String,
     required: true

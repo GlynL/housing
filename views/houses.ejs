@@ -9,43 +9,15 @@
 <section class='houses-list container'>
   <% houses.forEach(house => { %>
     <div class="card houses-list__item" style="width: 18rem;">
-      <img class="card-img-top" src="..." alt="Card image cap">
+      <img class="card-img-top" src="<%= house.thumbnail %>" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"><%= house.name %></h5>
         <p class="card-text"><%= house.description %></p>
         <p><%= house.email %></p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href='/houses/<%= house._id %>' id='viewPropertyBtn' data-id='<%= house._id %>' data-name='<%= house.name %>' class="btn btn-primary">View Property</a> 
       </div>
     </div>    
   <% }); %>
-  <div class="card houses-list__item" style="width: 18rem;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-
-  <div class="card houses-list__item" style="width: 18rem;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-
-  <div class="card houses-list__item" style="width: 18rem;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-
-
 
 </section>
   

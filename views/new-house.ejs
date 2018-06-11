@@ -4,8 +4,9 @@
       <h1>List Your House</h1>
     </header>
   </section>
+
   <section class='container new-house-form'>
-    <form action='/houses' method="post">
+    <form action='/houses' method="post" enctype="multipart/form-data">
       <div class='form-group'>
         <label for='name'>Property Name</label>
         <input type='text' class='form-control' id='name' name='name' placeholder='Enter your properties name.'>
@@ -13,6 +14,10 @@
       <div class='form-group'>
         <label for='description'>Property Decription</label>
         <textarea type='text' class='form-control' id='description' name='description' placeholder='Give a brief overview of your property.'></textarea>
+      </div>
+      <div class='form-group'>
+        <label for='thumbnail'>Image</label>
+        <input type='file' class='form-control-file' id='thumbnail' name='thumbnail' placeholder='Enter your properties name.'>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
@@ -23,5 +28,7 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </section>
+
+  <%# image - https://stackoverflow.com/questions/15772394/how-to-upload-display-and-save-images-using-node-js-and-express %>
 
 <%- include partials/footer.ejs %>
