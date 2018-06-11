@@ -9,7 +9,7 @@
 <section class='houses-list container'>
   <% houses.forEach(house => { %>
     <div class="card houses-list__item" style="width: 18rem;">
-      <img class="card-img-top" src="<%= house.thumbnail %>" alt="Card image cap">
+      <img class="card-img-top" src="<%= house.thumbnail.url %>" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"><%= house.name %></h5>
         <p class="card-text"><%= house.description %></p>

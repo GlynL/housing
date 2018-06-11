@@ -4,8 +4,9 @@
   <header class='jumbotron'>
     <h1><%= house.name %></h1>
     <p><%= house.description %></p>
-    <img src='<%= house.thumbnail %>'>
+    <img src='<%= house.thumbnail.url %>'>
   </header>
-</section
+  <button id='removePropertyBtn' data-id='<%= house._id %>' class='btn btn-danger'>Remove Property</button>
+</section>
 
 <%- include partials/footer.ejs %>
