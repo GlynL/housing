@@ -7,3 +7,17 @@
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
+.img__thumbnail {
+  display: block;
+  margin: 0 auto;
+}
+
+.thumbnail--preview {
+  height: 150px;
+  width: 150px;
+}
+
+.thumbnail__label {
+  display: block;
+}

@@ -1,12 +1,14 @@
 <%- include partials/header.ejs %>
-<% house = house[0] %>
 <section>
   <header class='jumbotron'>
     <h1><%= house.name %></h1>
     <p><%= house.description %></p>
-    <img src='<%= house.thumbnail.url %>'>
+    <img class='img-fluid img-thumbnail img__thumbnail' src='<%= house.thumbnail.url %>'>
+      <a href='/houses/<%= house._id %>/edit' id='updatePropertyBtn' data-id='<%= house._id %>' class='btn btn-primary'>Update Property</a>
+      <button id='removePropertyBtn' data-id='<%= house._id %>' class='btn btn-danger'>Remove Property</button>
   </header>
-  <button id='removePropertyBtn' data-id='<%= house._id %>' class='btn btn-danger'>Remove Property</button>
+  <section class='container'>
+  </section>
 </section>
 
 <%- include partials/footer.ejs %>

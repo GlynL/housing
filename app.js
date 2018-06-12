@@ -1,4 +1,5 @@
 const express = require("express");
+const methodOverride = require("method-override");
 const app = express();
 const dotenv = require("dotenv").config();
 const multer = require("multer");
@@ -17,6 +18,8 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 // parse application/json
 app.use(express.json());
+
+app.use(methodOverride("_method"));
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -52,21 +55,80 @@ app.post("/houses", upload.single("thumbnail"), function(req, res) {
 });
 
 app.get("/houses/:id", (req, res) => {
-  House.find({ _id: req.params.id }).then(house => {
-    res.render("house-single", { house });
-  });
+  House.findById(req.params.id)
+    .then(house => {
+      res.render("house-single", { house });
+    })
+    .catch(err => {
+      console.log(err);
+      res.redirect("/houses");
+    });
+});
+
+// EDIT ROUTE
+app.get("/houses/:id/edit", (req, res) => {
+  House.findById(req.params.id)
+    .then(house => {
+      res.render("house-edit", { house });
+    })
+    .catch(err => {
+      console.log(err);
+      res.redirect("/houses");
+    });
+});
+
+// UPDATE ROUTE
+app.put("/houses/:id", upload.single("thumbnail"), (req, res) => {
+  let updateHouse = req.body;
+
+  const file = req.file;
+
+  if (req.file) {
+    House.findById(req.params.id)
+      .then(house => {
+        // delete image from cloud server
+        cloudinary.v2.api.delete_resources([house.thumbnail.id], {
+          resource_type: "raw"
+        });
+      })
+      .then(() => {
+        // upload new image to cloud server
+        cloudinary.v2.uploader
+          // upload_stream w/ 'raw' is to work image uploads from buffer
+          .upload_stream({ resource_type: "raw" }, (error, result) => {
+            updateHouse.thumbnail = { url: null, id: null };
+            updateHouse.thumbnail.url = result.secure_url;
+            updateHouse.thumbnail.id = result.public_id;
+            updateHouseDb(updateHouse);
+          })
+          .end(req.file.buffer);
+      })
+      .catch(err => {
+        console.log(err);
+        res.redirect("/");
+      });
+  } else updateHouseDb(updateHouse);
+
+  function updateHouseDb(house) {
+    House.findByIdAndUpdate(req.params.id, house)
+      .then(() => res.redirect(`/houses/${req.params.id}`))
+      .catch(err => {
+        console.log(err);
+        res.redirect("/");
+      });
+  }
 });
 
 app.delete("/houses/:id", (req, res) => {
   const id = req.params.id;
-  House.find({ _id: id })
+  House.findById(id)
     .then(house => {
       cloudinary.v2.api.delete_resources(
-        [house[0].thumbnail.id],
+        [house.thumbnail.id],
         { resource_type: "raw" },
         function(err, result) {
           if (err) throw new error();
-          House.remove({ _id: id })
+          House.removeById(id)
             .then(() => res.json({ status: true, url: "/" }))
             .catch(err => console.log(err));
         }
