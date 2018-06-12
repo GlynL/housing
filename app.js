@@ -3,9 +3,8 @@ const methodOverride = require("method-override");
 const app = express();
 const dotenv = require("dotenv").config();
 const multer = require("multer");
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
 const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 
 const PORT = process.env.PORT;
 const House = require("./models/House");
@@ -27,6 +26,15 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 
+const storage = cloudinaryStorage({
+  cloudinary: cloudinary,
+  folder: "houses",
+  allowedFormats: ["jpg", "png"],
+  transformation: [{ width: 500, height: 500, crop: "limit" }]
+});
+
+const upload = multer({ storage: storage });
+
 app.get("/", (req, res) => res.render("index"));
 
 app.get("/houses", (req, res) => {
@@ -38,20 +46,18 @@ app.get("/houses", (req, res) => {
 
 app.get("/houses/new", (req, res) => res.render("new-house"));
 
-// TODO: force uniform size for image upload
-
 app.post("/houses", upload.single("thumbnail"), function(req, res) {
   let newHouse = req.body;
-  newHouse.thumbnail = { url: null, id: null };
-  // access image upload - save in mem storage (multer) - upload to cloudinary
-  cloudinary.v2.uploader
-    // upload_stream w/ 'raw' is to work image uploads from buffer
-    .upload_stream({ resource_type: "raw" }, (err, result) => {
-      newHouse.thumbnail.url = result.secure_url;
-      newHouse.thumbnail.id = result.public_id;
-      House.create(newHouse).then(newHouse => res.redirect("/houses"));
-    })
-    .end(req.file.buffer);
+  newHouse.thumbnail = {};
+  newHouse.thumbnail.url = req.file.secure_url;
+  newHouse.thumbnail.id = req.file.public_id;
+  House.create(newHouse)
+    // TODO: redirect to house page
+    .then(() => res.redirect("/houses"))
+    .catch(err => {
+      console.log(err);
+      res.redirect("/houses/new");
+    });
 });
 
 app.get("/houses/:id", (req, res) => {
