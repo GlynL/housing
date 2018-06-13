@@ -46,19 +46,37 @@ app.get("/houses", (req, res) => {
 
 app.get("/houses/new", (req, res) => res.render("new-house"));
 
-app.post("/houses", upload.single("thumbnail"), function(req, res) {
-  let newHouse = req.body;
-  newHouse.thumbnail = {};
-  newHouse.thumbnail.url = req.file.secure_url;
-  newHouse.thumbnail.id = req.file.public_id;
-  House.create(newHouse)
-    // TODO: redirect to house page
-    .then(() => res.redirect("/houses"))
-    .catch(err => {
-      console.log(err);
-      res.redirect("/houses/new");
+app.post(
+  "/houses",
+  upload.fields([
+    {
+      name: "thumbnail",
+      maxCount: 1
+    },
+    {
+      name: "gallery",
+      maxCount: 10
+    }
+  ]),
+  (req, res) => {
+    let newHouse = req.body;
+    newHouse.thumbnail = {};
+    newHouse.thumbnail.url = req.files.thumbnail[0].secure_url;
+    newHouse.thumbnail.id = req.files.thumbnail[0].public_id;
+    newHouse.gallery = {};
+    req.files.gallery.forEach(image => {
+      newHouse.gallery[image.public_id] = image.secure_url;
     });
-});
+
+    House.create(newHouse)
+      // TODO: redirect to house page
+      .then(() => res.redirect("/houses"))
+      .catch(err => {
+        console.log(err);
+        res.redirect("/houses/new");
+      });
+  }
+);
 
 app.get("/houses/:id", (req, res) => {
   House.findById(req.params.id)

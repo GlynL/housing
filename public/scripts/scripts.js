@@ -12,21 +12,26 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch(err => console.log(err));
   });
-  // document.querySelector("#updatePropertyBtn").addEventListener("click", e => {
 
-  // });
+  const galleryThumbnails = document.querySelectorAll(".gallery__thumbnail");
 
-  // document.querySelector("#updatePropertyBtn").addEventListener("click", e => {
-  //   const id = e.target.dataset.id;
-  //   fetch(`/houses/${id}`, {
-  //     method: "PUT"
-  //   })
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data);
-  //       // replace simulates HTTP redirect - https://stackoverflow.com/questions/4744751/how-do-i-redirect-with-javascript
-  //       if (data.status) window.location.replace(data.url);
-  //     })
-  //     .catch(err => console.log(err));
-  // });
+  galleryThumbnails.forEach(image =>
+    image.addEventListener("click", e => {
+      $("#modal").modal();
+      const carouselIndicators = document.querySelectorAll(
+        ".carousel-indicator"
+      );
+      const carouselItems = document.querySelectorAll(".carousel-item");
+      carouselItems.forEach(item => item.classList.remove("active"));
+      carouselIndicators.forEach(indicator =>
+        indicator.classList.remove("active")
+      );
+      const carousel = document.querySelector(".carousel");
+
+      const activeSelection = carousel.querySelectorAll(
+        `[data-id='${e.target.dataset.id}']`
+      );
+      activeSelection.forEach(selection => selection.classList.add("active"));
+    })
+  );
 });

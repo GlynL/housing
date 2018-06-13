@@ -23,6 +23,9 @@ const houseSchema = new Schema({
       type: String
     }
   },
+  gallery: {
+    type: Object
+  },
   email: {
     type: String,
     required: true

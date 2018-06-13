@@ -16,8 +16,14 @@
 .thumbnail--preview {
   height: 150px;
   width: 150px;
+  align-self: center;
 }
 
 .thumbnail__label {
   display: block;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
 }

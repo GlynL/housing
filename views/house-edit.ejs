@@ -20,6 +20,11 @@
         <label class='thumbnail__label' for='thumbnail'>Upload a new image to replace current thumbnail.</label>
         <input type='file' class='form-control-file' id='thumbnail' name='thumbnail'>
       </div>
+      <div class='form-group'> 
+        <label for='gallery'>Image Gallery</label>
+        <input type='file' class='form-control-file' id='gallery' name='gallery' aria-describedby='galleryHelp' multiple>
+        <small id='galleryHelp' class='form-text text-muted'>Upload further images to showcase your property.</small>
+      </div> 
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name='email' value='<%= house.email %>'>
