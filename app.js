@@ -93,21 +93,13 @@ app.put("/houses/:id", upload.single("thumbnail"), (req, res) => {
     House.findById(req.params.id)
       .then(house => {
         // delete image from cloud server
-        cloudinary.v2.api.delete_resources([house.thumbnail.id], {
-          resource_type: "raw"
-        });
+        cloudinary.v2.uploader.destroy(house.thumbnail.id);
       })
       .then(() => {
-        // upload new image to cloud server
-        cloudinary.v2.uploader
-          // upload_stream w/ 'raw' is to work image uploads from buffer
-          .upload_stream({ resource_type: "raw" }, (error, result) => {
-            updateHouse.thumbnail = { url: null, id: null };
-            updateHouse.thumbnail.url = result.secure_url;
-            updateHouse.thumbnail.id = result.public_id;
-            updateHouseDb(updateHouse);
-          })
-          .end(req.file.buffer);
+        updateHouse.thumbnail = { url: null, id: null };
+        updateHouse.thumbnail.url = req.file.secure_url;
+        updateHouse.thumbnail.id = req.file.public_id;
+        updateHouseDb(updateHouse);
       })
       .catch(err => {
         console.log(err);
