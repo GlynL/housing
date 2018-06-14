@@ -7,6 +7,11 @@
 
   <section class='container new-house-form'>
     <form action='/houses' method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name='email' placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">Will only be used for contact from potential tenants and occasionally us.</small>
+      </div>
       <div class='form-group'>
         <label for='name'>Property Name</label>
         <input type='text' class='form-control' id='name' name='name' placeholder='Enter your properties name.'>
@@ -25,12 +30,72 @@
         <input type='file' class='form-control-file' id='gallery' name='gallery' aria-describedby='galleryHelp' multiple>
         <small id='galleryHelp' class='form-text text-muted'>Upload further images to showcase your property.</small>
       </div> 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name='email' placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">Will only be used for contact from potential tenants and occasionally us.</small>
+     
+      <div class='row'>
+        <div class="form-group col">
+          <label for="bedrooms">Bedrooms</label>
+          <select class="form-control" id="bedrooms" name='bedrooms'>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <label for="bathrooms">Bathrooms</label>
+          <select class="form-control" id="bathrooms" name='bathrooms'>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
       </div>
       
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="kitchen" name='kitchen' value="option1">
+        <label class="form-check-label" for="kitchen">Kitchen</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="ac" name='ac' value="option1">
+        <label class="form-check-label" for="ac">A/C</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="fan" name='fan' value="option1">
+        <label class="form-check-label" for="fan">Fan</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="WiFi" name='WiFi' value="option1">
+        <label class="form-check-label" for="WiFi">Wifi</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="billsincluded" name='billsincluded' value="option1">
+        <label class="form-check-label" for="billsincluded">Bills Included</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="livingroom" name='livingroom' value="option1">
+        <label class="form-check-label" for="livingroom">Living Room</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="parking" name='parking' value="option1">
+        <label class="form-check-label" for="parking">Undercover Parking</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="fridge" name='fridge' value="option1">
+        <label class="form-check-label" for="fridge">Fridge</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="oven" name='oven' value="option1">
+        <label class="form-check-label" for="oven">Oven</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="hotwater" name='hotwater' value="option1">
+        <label class="form-check-label" for="hotwater">Hot Water</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="teacoffee" name='teacoffee' value="option1">
+        <label class="form-check-label" for="teacoffee">Tea/Coffee</label>
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </section>

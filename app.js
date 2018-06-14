@@ -63,10 +63,12 @@ app.post(
     newHouse.thumbnail = {};
     newHouse.thumbnail.url = req.files.thumbnail[0].secure_url;
     newHouse.thumbnail.id = req.files.thumbnail[0].public_id;
-    newHouse.gallery = {};
-    req.files.gallery.forEach(image => {
-      newHouse.gallery[image.public_id] = image.secure_url;
-    });
+    if (req.files.gallery) {
+      newHouse.gallery = {};
+      req.files.gallery.forEach(image => {
+        newHouse.gallery[image.public_id] = image.secure_url;
+      });
+    }
 
     House.create(newHouse)
       // TODO: redirect to house page
@@ -102,55 +104,74 @@ app.get("/houses/:id/edit", (req, res) => {
 });
 
 // UPDATE ROUTE
-app.put("/houses/:id", upload.single("thumbnail"), (req, res) => {
-  let updateHouse = req.body;
+app.put(
+  "/houses/:id",
+  upload.fields([
+    {
+      name: "thumbnail",
+      maxCount: 1
+    },
+    {
+      name: "gallery",
+      maxCount: 10
+    }
+  ]),
+  (req, res) => {
+    let updateHouse = req.body;
 
-  const file = req.file;
+    if (req.files) {
+      House.findById(req.params.id)
+        .then(house => {
+          // delete image from cloud server
+          if (req.files.thumbnail) {
+            cloudinary.v2.uploader.destroy(house.thumbnail.id);
+            updateHouse.thumbnail = { url: null, id: null };
+            updateHouse.thumbnail.url = req.files.thumbnail[0].secure_url;
+            updateHouse.thumbnail.id = req.files.thumbnail[0].public_id;
+          }
+          if (req.files.gallery) {
+            updateHouse.gallery = house.gallery || {};
+            req.files.gallery.forEach(image => {
+              updateHouse.gallery[image.public_id] = image.secure_url;
+            });
+          }
+        })
+        .then(() => {
+          updateHouseDb(updateHouse);
+        })
+        .catch(err => {
+          console.log(err);
+          res.redirect("/");
+        });
+    } else updateHouseDb(updateHouse);
 
-  if (req.file) {
-    House.findById(req.params.id)
-      .then(house => {
-        // delete image from cloud server
-        cloudinary.v2.uploader.destroy(house.thumbnail.id);
-      })
-      .then(() => {
-        updateHouse.thumbnail = { url: null, id: null };
-        updateHouse.thumbnail.url = req.file.secure_url;
-        updateHouse.thumbnail.id = req.file.public_id;
-        updateHouseDb(updateHouse);
-      })
-      .catch(err => {
-        console.log(err);
-        res.redirect("/");
-      });
-  } else updateHouseDb(updateHouse);
-
-  function updateHouseDb(house) {
-    House.findByIdAndUpdate(req.params.id, house)
-      .then(() => res.redirect(`/houses/${req.params.id}`))
-      .catch(err => {
-        console.log(err);
-        res.redirect("/");
-      });
+    function updateHouseDb(house) {
+      House.findByIdAndUpdate(req.params.id, house)
+        .then(() => res.redirect(`/houses/${req.params.id}`))
+        .catch(err => {
+          console.log(err);
+          res.redirect("/");
+        });
+    }
   }
-});
+);
 
 app.delete("/houses/:id", (req, res) => {
-  const id = req.params.id;
-  House.findById(id)
-    .then(house => {
-      cloudinary.v2.api.delete_resources(
-        [house.thumbnail.id],
-        { resource_type: "raw" },
-        function(err, result) {
-          if (err) throw new error();
-          House.removeById(id)
-            .then(() => res.json({ status: true, url: "/" }))
-            .catch(err => console.log(err));
-        }
-      );
-    })
-    .catch(err => console.log(err));
+  const houseId = req.params.id;
+  const galleryId = req.body.galleryId;
+  cloudinary.v2.uploader.destroy(galleryId, function() {
+    House.findById;
+    House.findById(houseId)
+      .then(house => {
+        delete house.gallery[galleryId];
+        House.findByIdAndUpdate(houseId, house)
+          .then(result => res.json({ status: true, house: result }))
+          .catch(err => console.log(err));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
 });
 
 app.listen(PORT, () => console.log(`app listening on port ${PORT}`));

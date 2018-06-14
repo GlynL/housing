@@ -34,4 +34,34 @@ document.addEventListener("DOMContentLoaded", () => {
       activeSelection.forEach(selection => selection.classList.add("active"));
     })
   );
+
+  const galleryDeleteBtns = document.querySelectorAll(".gallery__delete");
+
+  galleryDeleteBtns.forEach(btn => {
+    btn.addEventListener("click", deleteGalleryImage);
+  });
+
+  function deleteGalleryImage(e) {
+    const galleryId = { galleryId: e.target.dataset.id };
+    const houseId = e.target.dataset.house;
+    const item = e.target.parentNode;
+
+    // * delete from cloudinary & DB
+    fetch(`/houses/${houseId}`, {
+      method: "DELETE",
+      body: JSON.stringify(galleryId),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        item.parentNode.removeChild(item);
+      })
+      .catch(err => console.log(err));
+
+    // * update page to remove from view
+  }
 });
+
+// TODO: ADD DELETE TO IMAGE GALLERY
