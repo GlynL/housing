@@ -56,12 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then(res => res.json())
       .then(data => {
-        item.parentNode.removeChild(item);
+        // remove from dom
+        item.remove();
       })
       .catch(err => console.log(err));
-
-    // * update page to remove from view
   }
 });
-
-// TODO: ADD DELETE TO IMAGE GALLERY
