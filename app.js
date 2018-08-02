@@ -40,11 +40,13 @@ app.get("/", (req, res) => res.render("index"));
 app.get("/houses", (req, res) => {
   // query db for all houses - pass data to houses view
   House.find({})
-    .then(houses => res.render("houses", { houses }))
+    .then(houses => res.render("houses", { houses, page_name: "houses" }))
     .catch(err => console.log(err));
 });
 
-app.get("/houses/new", (req, res) => res.render("new-house"));
+app.get("/houses/new", (req, res) =>
+  res.render("new-house", { page_name: "new-house" })
+);
 
 app.post(
   "/houses",
