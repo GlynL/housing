@@ -1,8 +1,6 @@
 const House = require("../models/House");
 const cloudinary = require("cloudinary");
 
-exports.home = (req, res) => res.render("index", { page_name: "home" });
-
 exports.houses = (req, res, next) => {
   // query db for all houses - pass data to houses view
   House.find({})
@@ -85,6 +83,7 @@ exports.edit = (req, res) => {
   }
 };
 
+// TODO: not working??
 exports.delete = (req, res) => {
   const houseId = req.params.id;
   const galleryId = req.body.galleryId;

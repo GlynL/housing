@@ -2,13 +2,10 @@ const express = require("express");
 const methodOverride = require("method-override");
 const app = express();
 const dotenv = require("dotenv").config();
-const multer = require("multer");
 const cloudinary = require("cloudinary");
-const cloudinaryStorage = require("multer-storage-cloudinary");
-const houseControllers = require("./controllers/houses");
+const houseRoutes = require("./routes/houses");
 
 const PORT = process.env.PORT;
-const House = require("./models/House");
 
 app.set("view engine", "ejs");
 
@@ -27,68 +24,8 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 
-const storage = cloudinaryStorage({
-  cloudinary: cloudinary,
-  folder: "houses",
-  allowedFormats: ["jpg", "png"],
-  transformation: [{ width: 500, height: 500, crop: "limit" }]
-});
+app.get("/", (req, res) => res.render("index", { page_name: "home" }));
 
-const upload = multer({ storage: storage });
-
-app.get("/", houseControllers.home);
-
-app.get("/houses", houseControllers.houses);
-
-app.get("/houses/new", houseControllers.new);
-
-app.post(
-  "/houses",
-  // upload images to cloudinary
-  upload.fields([
-    {
-      name: "thumbnail",
-      maxCount: 1
-    },
-    {
-      name: "gallery",
-      maxCount: 10
-    }
-  ]),
-  houseControllers.add
-);
-
-app.get("/houses/:id", houseControllers.single);
-
-// EDIT ROUTE
-app.get("/houses/:id/edit", (req, res) => {
-  // locate house by id in DB & render edit-page
-  House.findById(req.params.id)
-    .then(house => {
-      res.render("house-edit", { house });
-    })
-    .catch(err => {
-      console.log(err);
-      res.redirect("/houses");
-    });
-});
-
-// UPDATE ROUTE
-app.put(
-  "/houses/:id",
-  upload.fields([
-    {
-      name: "thumbnail",
-      maxCount: 1
-    },
-    {
-      name: "gallery",
-      maxCount: 10
-    }
-  ]),
-  houseControllers.edit
-);
-
-app.delete("/houses/:id", houseControllers.delete);
+app.use("/houses", houseRoutes);
 
 app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
