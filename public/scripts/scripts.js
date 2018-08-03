@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         // replace simulates HTTP redirect - https://stackoverflow.com/questions/4744751/how-do-i-redirect-with-javascript
         if (data.status) window.location.replace(data.url);
       })
