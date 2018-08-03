@@ -6,31 +6,34 @@ mongoose.promise = Promise;
 const db = mongoose.connection;
 
 const Schema = mongoose.Schema;
-const houseSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  thumbnail: {
-    url: {
-      type: String
+const houseSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true
     },
-    id: {
-      type: String
+    description: {
+      type: String,
+      required: true
+    },
+    thumbnail: {
+      url: {
+        type: String
+      },
+      id: {
+        type: String
+      }
+    },
+    gallery: {
+      type: Object
+    },
+    email: {
+      type: String,
+      required: true
     }
   },
-  gallery: {
-    type: Object
-  },
-  email: {
-    type: String,
-    required: true
-  }
-});
+  { minimize: false }
+);
 
 const House = mongoose.model("House", houseSchema);
 

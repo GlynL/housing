@@ -13,14 +13,18 @@ exports.new = (req, res) => res.render("new-house", { page_name: "new-house" });
 exports.add = (req, res) => {
   // combine all house details
   let newHouse = req.body;
+  // setup thumbnail image
   newHouse.thumbnail = {};
   newHouse.thumbnail.url = req.files.thumbnail[0].secure_url;
   newHouse.thumbnail.id = req.files.thumbnail[0].public_id;
+  // setup gallery
+  newHouse.gallery = {};
+  // check if any images uploaded
   if (req.files.gallery) {
-    newHouse.gallery = {};
-    req.files.gallery.forEach(image => {
-      newHouse.gallery[image.public_id] = image.secure_url;
-    });
+    // add to gallery object each image url under the key of it's cloudinary id
+    req.files.gallery.forEach(
+      image => (newHouse.gallery[image.public_id] = image.secure_url)
+    );
   }
 
   // add hosue to db & redirect
@@ -83,12 +87,39 @@ exports.edit = (req, res) => {
   }
 };
 
-// TODO: not working??
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
+  const houseId = req.params.id;
+  House.findById(houseId)
+    .then(house => {
+      // check if any images in gallery
+      const hasGallery = !!Object.keys(house.gallery).length;
+      if (hasGallery) {
+        // delete each gallery image from cloudinary
+        Object.keys(house.gallery).forEach(key =>
+          cloudinary.v2.uploader.destroy(key)
+        );
+      }
+      // delete thumbnail from cloudinary
+      cloudinary.v2.uploader.destroy(house.thumbnail.id);
+    })
+    .then(() =>
+      House.findByIdAndRemove(houseId)
+        .then(data =>
+          res.json({
+            status: true,
+            url: "/houses",
+            message: "Property removed successfully."
+          })
+        )
+        .catch(err => next(err))
+    )
+    .catch(err => next(err));
+};
+
+exports.deleteGallery = (req, res) => {
   const houseId = req.params.id;
   const galleryId = req.body.galleryId;
   cloudinary.v2.uploader.destroy(galleryId, function() {
-    House.findById;
     House.findById(houseId)
       .then(house => {
         delete house.gallery[galleryId];

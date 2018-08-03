@@ -18,14 +18,17 @@ app.use(express.json());
 
 app.use(methodOverride("_method"));
 
+// setup cloudinary with account info
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET
 });
 
+// home route
 app.get("/", (req, res) => res.render("index", { page_name: "home" }));
 
+// houses routes
 app.use("/houses", houseRoutes);
 
 app.listen(PORT, () => console.log(`app listening on port ${PORT}`));

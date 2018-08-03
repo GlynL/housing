@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary");
 const multer = require("multer");
 const cloudinaryStorage = require("multer-storage-cloudinary");
 
+// setup storage with options and transformations
 const storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: "houses",
@@ -13,7 +14,8 @@ const storage = cloudinaryStorage({
   transformation: [{ width: 500, height: 500, crop: "limit" }]
 });
 
-const upload = multer({ storage: storage });
+// setup multer to parse our storage choices
+const parser = multer({ storage: storage });
 
 router.get("/", houseControllers.houses);
 
@@ -22,7 +24,7 @@ router.get("/new", houseControllers.new);
 router.post(
   "/",
   // upload images to cloudinary
-  upload.fields([
+  parser.fields([
     {
       name: "thumbnail",
       maxCount: 1
@@ -53,7 +55,7 @@ router.get("/:id/edit", (req, res) => {
 // UPDATE ROUTE
 router.put(
   "/:id",
-  upload.fields([
+  parser.fields([
     {
       name: "thumbnail",
       maxCount: 1
@@ -66,6 +68,10 @@ router.put(
   houseControllers.edit
 );
 
+// delete image from gallery
+router.delete("/:id/gallery", houseControllers.deleteGallery);
+
+// delete property
 router.delete("/:id", houseControllers.delete);
 
 module.exports = router;
