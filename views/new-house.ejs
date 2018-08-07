@@ -9,20 +9,20 @@
     <form action='/houses' method="post" enctype="multipart/form-data">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name='email' placeholder="Enter email">
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name='email' placeholder="Enter email" required>
         <small id="emailHelp" class="form-text text-muted">Will only be used for contact from potential tenants and occasionally us.</small>
       </div>
       <div class='form-group'>
         <label for='name'>Property Name</label>
-        <input type='text' class='form-control' id='name' name='name' placeholder='Enter your properties name.'>
+        <input type='text' class='form-control' id='name' name='name' placeholder='Enter your properties name.' required>
       </div>
       <div class='form-group'>
         <label for='description'>Property Decription</label>
-        <textarea type='text' class='form-control' id='description' name='description' placeholder='Give a brief overview of your property.'></textarea>
+        <textarea type='text' class='form-control' id='description' name='description' placeholder='Give a brief overview of your property.' required></textarea>
       </div>
       <div class='form-group'>
         <label for='thumbnail'>Feature Image</label>
-        <input type='file' class='form-control-file' id='thumbnail' aria-describedby='thumbnailHelp' name='thumbnail'>
+        <input type='file' class='form-control-file' id='thumbnail' aria-describedby='thumbnailHelp' name='thumbnail' required>
         <small id='thumbnailHelp' class='form-text text-muted'>Choose one image to be featured.</small>
       </div>
       <div class='form-group'> 
@@ -51,53 +51,52 @@
           </select>
         </div>
       </div>
-      
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="kitchen" name='kitchen' value="option1">
+        <input class="form-check-input" type="checkbox" id="kitchen" name='features' value='Kitchen'>
         <label class="form-check-label" for="kitchen">Kitchen</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="ac" name='ac' value="option1">
+        <input class="form-check-input" type="checkbox" id="ac" name='features' value='A/C'>
         <label class="form-check-label" for="ac">A/C</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="fan" name='fan' value="option1">
+        <input class="form-check-input" type="checkbox" id="fan" name='features' value='Fan'>
         <label class="form-check-label" for="fan">Fan</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="WiFi" name='WiFi' value="option1">
+        <input class="form-check-input" type="checkbox" id="WiFi" name='features' value='WiFi'>
         <label class="form-check-label" for="WiFi">Wifi</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="billsincluded" name='billsincluded' value="option1">
+        <input class="form-check-input" type="checkbox" id="billsincluded" name='features' value='Bills Included'>
         <label class="form-check-label" for="billsincluded">Bills Included</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="cleaning" name='cleaning' value="option1">
+        <input class="form-check-input" type="checkbox" id="cleaning" name='features' value='Cleaning Included'>
         <label class="form-check-label" for="cleaning">Cleaning Included</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="livingroom" name='livingroom' value="option1">
+        <input class="form-check-input" type="checkbox" id="livingroom" name='features' value='Living Room'>
         <label class="form-check-label" for="livingroom">Living Room</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="parking" name='parking' value="option1">
+        <input class="form-check-input" type="checkbox" id="parking" name='features' value='Undercover Parking'>
         <label class="form-check-label" for="parking">Undercover Parking</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="fridge" name='fridge' value="option1">
+        <input class="form-check-input" type="checkbox" id="fridge" name='features' value='Fridge'>
         <label class="form-check-label" for="fridge">Fridge</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="oven" name='oven' value="option1">
+        <input class="form-check-input" type="checkbox" id="oven" name='features' value='Oven'>
         <label class="form-check-label" for="oven">Oven</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="hotwater" name='hotwater' value="option1">
+        <input class="form-check-input" type="checkbox" id="hotwater" name='features' value='Hot Water'>
         <label class="form-check-label" for="hotwater">Hot Water</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="teacoffee" name='teacoffee' value="option1">
+        <input class="form-check-input" type="checkbox" id="teacoffee" name='features' value='Tea/Coffee'>
         <label class="form-check-label" for="teacoffee">Tea/Coffee</label>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>

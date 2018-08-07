@@ -3,6 +3,14 @@
 <section>
   <header class='jumbotron'>
     <h1><%= house.name %></h1>
+    <p><%= house.bedrooms %> Bedroom | <%= house.bathrooms %> Bathroom</p>
+      <% if (house.features) { %>
+      <div>
+        <% house.features.forEach(feature => { %>
+          <btn class='btn btn-outline-secondary'><%= feature %></btn>
+        <% }) %>
+      </div>
+   <% } %>
     <p><%= house.description %></p>
     <img class='img-fluid img-thumbnail img__thumbnail' src='<%= house.thumbnail.url %>'>
     <a href='/houses/<%= house._id %>/edit' id='updatePropertyBtn' data-id='<%= house._id %>' class='btn btn-primary'>Update Property</a>

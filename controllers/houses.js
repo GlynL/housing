@@ -16,6 +16,7 @@ exports.new = (req, res) => res.render("new-house", { page_name: "new-house" });
 exports.add = async (req, res, next) => {
   // combine all house details
   let newHouse = req.body;
+  console.log(req.body);
   // setup thumbnail image
   newHouse.thumbnail = {};
   newHouse.thumbnail.url = req.files.thumbnail[0].secure_url;

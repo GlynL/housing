@@ -30,7 +30,16 @@ const houseSchema = new Schema(
     email: {
       type: String,
       required: true
-    }
+    },
+    bedrooms: {
+      type: Number,
+      required: true
+    },
+    bathrooms: {
+      type: Number,
+      required: true
+    },
+    features: Array
   },
   { minimize: false }
 );

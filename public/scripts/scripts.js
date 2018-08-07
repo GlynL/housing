@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const houseId = e.target.dataset.house;
     const item = e.target.parentNode;
 
-    // * delete from cloudinary & DB
+    // delete from cloudinary & DB
     fetch(`/houses/${houseId}/gallery`, {
       method: "DELETE",
       body: JSON.stringify(galleryId),
