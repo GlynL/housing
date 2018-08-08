@@ -2,8 +2,18 @@
 
 <section>
   <header class='jumbotron'>
-    <h1><%= house.name %></h1>
-    <p><%= house.bedrooms %> Bedroom | <%= house.bathrooms %> Bathroom</p>
+    <h1 class='text-center'><%= house.name %></h1>
+       <p class='text-center'><%= house.bedrooms %> Bedroom | <%= house.bathrooms %> Bathroom</p>
+
+    <img class='img-fluid img-thumbnail img__thumbnail' src='<%= house.thumbnail.url %>'>
+    <div class='text-center'>
+      <a href='/houses/<%= house._id %>/edit' id='updatePropertyBtn' data-id='<%= house._id %>' class='btn btn-primary'>Update Property</a>
+      <button id='removePropertyBtn' data-id='<%= house._id %>' class='btn btn-danger'>Remove Property</button>
+    </div>
+  </header>
+</section>
+
+<section class='text-center'>
       <% if (house.features) { %>
       <div>
         <% house.features.forEach(feature => { %>
@@ -12,10 +22,6 @@
       </div>
    <% } %>
     <p><%= house.description %></p>
-    <img class='img-fluid img-thumbnail img__thumbnail' src='<%= house.thumbnail.url %>'>
-    <a href='/houses/<%= house._id %>/edit' id='updatePropertyBtn' data-id='<%= house._id %>' class='btn btn-primary'>Update Property</a>
-    <button id='removePropertyBtn' data-id='<%= house._id %>' class='btn btn-danger'>Remove Property</button>
-  </header>
 </section>
 
 <section class='container gallery'>
