@@ -5,6 +5,7 @@ const House = require("../models/House");
 const cloudinary = require("cloudinary");
 const multer = require("multer");
 const cloudinaryStorage = require("multer-storage-cloudinary");
+const isAuthed = require("../middleware/auth");
 
 // setup storage with options and transformations
 const storage = cloudinaryStorage({
@@ -19,7 +20,7 @@ const parser = multer({ storage: storage });
 
 router.get("/", houseControllers.houses);
 
-router.get("/new", houseControllers.new);
+router.get("/new", isAuthed, houseControllers.new);
 
 router.post(
   "/",
