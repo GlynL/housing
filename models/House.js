@@ -8,6 +8,10 @@ const db = mongoose.connection;
 const Schema = mongoose.Schema;
 const houseSchema = new Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
     name: {
       type: String,
       required: true
@@ -26,10 +30,6 @@ const houseSchema = new Schema(
     },
     gallery: {
       type: Object
-    },
-    email: {
-      type: String,
-      required: true
     },
     bedrooms: {
       type: Number,

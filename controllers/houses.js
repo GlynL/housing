@@ -16,7 +16,8 @@ exports.new = (req, res) => res.render("new-house", { page_name: "new-house" });
 exports.add = async (req, res, next) => {
   // combine all house details
   let newHouse = req.body;
-  console.log(req.body);
+  // save user to house
+  newHouse.user = req.user;
   // setup thumbnail image
   newHouse.thumbnail = {};
   newHouse.thumbnail.url = req.files.thumbnail[0].secure_url;
@@ -40,10 +41,12 @@ exports.add = async (req, res, next) => {
 };
 
 exports.single = async (req, res, next) => {
+  const currentUser = req.user ? req.user.id : undefined;
   try {
     // locate house in db & render single-view page
     const house = await House.findById(req.params.id);
-    res.render("house-single", { house, page_name: "house-single" });
+    const userHouse = String(house.user) === currentUser;
+    res.render("house-single", { house, userHouse, page_name: "house-single" });
   } catch (err) {
     next(err);
   }

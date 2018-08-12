@@ -6,10 +6,14 @@
        <p class='text-center'><%= house.bedrooms %> Bedroom | <%= house.bathrooms %> Bathroom</p>
 
     <img class='img-fluid img-thumbnail img__thumbnail' src='<%= house.thumbnail.url %>'>
-    <div class='text-center'>
-      <a href='/houses/<%= house._id %>/edit' id='updatePropertyBtn' data-id='<%= house._id %>' class='btn btn-primary'>Update Property</a>
-      <button id='removePropertyBtn' data-id='<%= house._id %>' class='btn btn-danger'>Remove Property</button>
-    </div>
+
+    <% if (userHouse) { %>
+        <div class='text-center'>
+          <a href='/houses/<%= house._id %>/edit' id='updatePropertyBtn' data-id='<%= house._id %>' class='btn btn-primary'>Update Property</a>
+          <button id='removePropertyBtn' data-id='<%= house._id %>' class='btn btn-danger'>Remove Property</button>
+        </div>
+    <% } %>
+ 
   </header>
 </section>
 

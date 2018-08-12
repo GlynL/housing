@@ -1,3 +1,10 @@
+# TODO:
+  * check update/delete house routes
+  * refresh - stay logged in 
+  * add authentication for update/delete routes 
+
+<!-- ALL THIS WAS FIRST ATTEMPT - CHANGED - WROTE BLOG -->
+
 # HTML
 
 - form needs right enctype to process file <!--  enctype='multipart/form-data'  -->
