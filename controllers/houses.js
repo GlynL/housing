@@ -41,10 +41,10 @@ exports.add = async (req, res, next) => {
 };
 
 exports.single = async (req, res, next) => {
-  const currentUser = req.user ? req.user.id : undefined;
   try {
     // locate house in db & render single-view page
     const house = await House.findById(req.params.id);
+    const currentUser = req.user ? req.user.id : undefined;
     const userHouse = String(house.user) === currentUser;
     res.render("house-single", { house, userHouse, page_name: "house-single" });
   } catch (err) {

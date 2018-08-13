@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary");
 const multer = require("multer");
 const cloudinaryStorage = require("multer-storage-cloudinary");
 const isAuthed = require("../middleware/auth");
+const userMatch = require("../middleware/userMatch");
 
 // setup storage with options and transformations
 const storage = cloudinaryStorage({
@@ -41,7 +42,7 @@ router.post(
 router.get("/:id", houseControllers.single);
 
 // EDIT ROUTE
-router.get("/:id/edit", (req, res) => {
+router.get("/:id/edit", userMatch, (req, res) => {
   // locate house by id in DB & render edit-page
   House.findById(req.params.id)
     .then(house => {
@@ -56,6 +57,7 @@ router.get("/:id/edit", (req, res) => {
 // UPDATE ROUTE
 router.put(
   "/:id",
+  userMatch,
   parser.fields([
     {
       name: "thumbnail",
@@ -70,9 +72,9 @@ router.put(
 );
 
 // delete image from gallery
-router.delete("/:id/gallery", houseControllers.deleteGallery);
+router.delete("/:id/gallery", userMatch, houseControllers.deleteGallery);
 
 // delete property
-router.delete("/:id", houseControllers.delete);
+router.delete("/:id", userMatch, houseControllers.delete);
 
 module.exports = router;
