@@ -1,5 +1,4 @@
 # TODO:
-  * refresh - stay logged in 
 
 <!-- ALL THIS WAS FIRST ATTEMPT - CHANGED - WROTE BLOG -->
 

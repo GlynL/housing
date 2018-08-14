@@ -1,7 +1,7 @@
 <%- include partials/header.ejs %>
 <section class='container'>
 <heading>
-  <h1>Log In</h1>
+  <h1>Login</h1>
 </heading>
 <form class='container' action='/user/login' method='post'>
   <div class="form-group">
@@ -12,12 +12,12 @@
     <label for="password">Password</label>
     <input type="password" class="form-control" id="password" name='password' placeholder="Password">
   </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<section>
+  <h2>Not a user yet?</h2>
+  <a href="/user/register" class='btn btn-primary'>Register</a>
+</section>
 
 </div>
 

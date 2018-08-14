@@ -1,9 +1,4 @@
 const mongoose = require("mongoose");
-mongoose.set("debug", true);
-
-mongoose.connect("mongodb://localhost/housing");
-mongoose.promise = Promise;
-const db = mongoose.connection;
 
 const Schema = mongoose.Schema;
 const houseSchema = new Schema(

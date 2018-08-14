@@ -1,12 +1,6 @@
 const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 
-mongoose.set("debug", true);
-
-mongoose.connect("mongodb://localhost/housing");
-mongoose.promise = Promise;
-const db = mongoose.connection;
-
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
   email: {
@@ -17,7 +11,9 @@ const userSchema = new Schema({
   }
 });
 
-userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose, {
+  usernameField: "email"
+});
 
 const User = mongoose.model("User", userSchema);
 

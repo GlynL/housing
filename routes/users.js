@@ -5,15 +5,18 @@ const User = require("../models/User");
 const userControllers = require("../controllers/users");
 
 // register form
-router.get("/register", (req, res) => res.render("user-register"));
+router.get("/register", userControllers.register);
 
 // new user
 router.post("/register", (req, res, next) => {
   User.register(
-    new User({ username: req.body.username }),
+    new User({ email: req.body.email }),
     req.body.password,
     function(err, user) {
-      if (err) next(err);
+      if (err) {
+        console.log(err);
+        next(err);
+      }
       passport.authenticate("local")(req, res, function() {
         res.redirect("/");
       });

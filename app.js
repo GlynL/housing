@@ -5,10 +5,12 @@ const dotenv = require("dotenv").config();
 const cloudinary = require("cloudinary");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const mongoose = require("mongoose");
 const passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./models/User");
 const houseRoutes = require("./routes/houses");
 const userRoutes = require("./routes/users");
+const currentUser = require("./middleware/currentUser");
 
 //
 // --------- CONFIG ---------
@@ -28,7 +30,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 // passport config
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "email"
+    },
+    User.authenticate()
+  )
+);
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -38,6 +47,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(methodOverride("_method"));
+
+// connectto database
+
+mongoose.set("debug", true);
+
+mongoose.connect(
+  `mongodb://${process.env.MLAB_USER}:${
+    process.env.MLAB_PASSWORD
+  }@ds121182.mlab.com:21182/paihousing`
+);
+mongoose.promise = Promise;
+
+// custom middleware
+app.use(currentUser);
 
 // setup cloudinary with account info
 cloudinary.config({
