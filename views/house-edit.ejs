@@ -25,8 +25,81 @@
         <input type='file' class='form-control-file' id='gallery' name='gallery' aria-describedby='galleryHelp' multiple>
         <small id='galleryHelp' class='form-text text-muted'>Upload further images to showcase your property.</small>
       </div> 
+
+       <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="kitchen" name='features' value='Kitchen'
+          <%= house.features.includes('Kitchen') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="kitchen">Kitchen</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="ac" name='features' value='A/C'
+          <%= house.features.includes('A/C') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="ac">A/C</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="fan" name='features' value='Fan'
+          <%= house.features.includes('Fan') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="fan">Fan</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="WiFi" name='features' value='WiFi'
+          <%= house.features.includes('WiFi') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="WiFi">Wifi</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="billsincluded" name='features' value='Bills Included'
+          <%= house.features.includes('Bills Included') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="billsincluded">Bills Included</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="cleaning" name='features' value='Cleaning Included'
+          <%= house.features.includes('Cleaning Included') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="cleaning">Cleaning Included</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="livingroom" name='features' value='Living Room'
+          <%= house.features.includes('Living Room') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="livingroom">Living Room</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="parking" name='features' value='Undercover Parking'
+          <%= house.features.includes('Undercover Parking') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="parking">Undercover Parking</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="fridge" name='features' value='Fridge'
+          <%= house.features.includes('Fridge') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="fridge">Fridge</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="oven" name='features' value='Oven'
+          <%= house.features.includes('Oven') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="oven">Oven</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="hotwater" name='features' value='Hot Water'
+          <%= house.features.includes('Hot Water') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="hotwater">Hot Water</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="teacoffee" name='features' value='Tea/Coffee'
+          <%= house.features.includes('Tea/Coffee') ? 'checked' : '' %>
+        >
+        <label class="form-check-label" for="teacoffee">Tea/Coffee</label>
+      </div>
       
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary btn--block">Submit</button>
     </form>
   </section>
 

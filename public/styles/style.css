@@ -1,22 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
 .btn.btn--block {
   display: block;
   margin-top: 5px;
 }
 
 .showcase {
-  padding: 20px;
-  background: #e9ecef;
-  max-width: 400px;
-  margin: 0 auto;
-  margin-top: 40px;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 5px;
+  padding: 20px;
+  color: white;
+  max-width: 400px;
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  text-align: center;
+}
+
+.showcase h1 {
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+.showcase .btn {
+  margin: 5px;
+  font-size: 1.3rem;
 }
 
 .banner {
   padding-top: 56px;
   height: 100vh;
-  background: url("../images/mike-petrucci-142796-unsplash.jpg") no-repeat
-    center center fixed;
+  background: url("../images/background.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -72,4 +88,11 @@
 .gallery__item:hover .gallery__thumbnail {
   opacity: 0.7;
   transition: opacity 0.3s ease-in;
+}
+
+@media only screen and (max-width: 768px) {
+  .showcase {
+    left: 0;
+    margin: 10px;
+  }
 }
