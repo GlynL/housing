@@ -2,6 +2,10 @@
 
 <!-- ALL THIS WAS FIRST ATTEMPT - CHANGED - WROTE BLOG -->
 
+# TODO
+
+
+
 # HTML
 
 - form needs right enctype to process file <!--  enctype='multipart/form-data'  -->

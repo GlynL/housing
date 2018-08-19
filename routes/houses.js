@@ -77,4 +77,7 @@ router.delete("/:id/gallery", userMatch, houseControllers.deleteGallery);
 // delete property
 router.delete("/:id", userMatch, houseControllers.delete);
 
+// send email enquiry
+router.post("/:id/enquire", isAuthed, houseControllers.enquire);
+
 module.exports = router;

@@ -129,3 +129,8 @@ exports.deleteGallery = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.enquire = function(req, res, next) {
+  console.log(req.body);
+  res.send(req.body);
+};

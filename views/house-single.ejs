@@ -37,6 +37,24 @@
   <% } %>
 </section>
 
+<section class='container'>
+
+  <% if (currentUser) { %>
+      <h2>Contact Property</h2>
+      <form action="/houses/:id/enquire" method='POST'>
+        <div class="form-group">
+          <label for="enquire-text">Include a message</label>
+          <textarea class="form-control" id="enquire-text" rows="3" name='message' placeholder="Hi, I'm looking for a property for 2 months between December and January. I'd love to come and look at yours in person. Would tomorrow suit? You can call me on xxxx-xxx-xxx. Thanks."></textarea>
+        </div>
+        <button class='btn btn-primary'>Enquire</button>
+      </form>
+  <% } else { %>
+    <h2>You need to be logged in to contact property.</h2>
+    <a href="/user/login" class='btn btn-primary'>Login</a>
+    <a href="/user/register" class='btn btn-secondary'>Register</a>
+  <% } %>
+</section>
+
 <section id="modal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
