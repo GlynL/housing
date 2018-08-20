@@ -1,5 +1,6 @@
 const House = require("../models/House");
 const cloudinary = require("cloudinary");
+const nodemailer = require("nodemailer");
 
 exports.houses = async (req, res, next) => {
   // query db for all houses - pass data to houses view
@@ -130,7 +131,56 @@ exports.deleteGallery = async (req, res, next) => {
   }
 };
 
-exports.enquire = function(req, res, next) {
-  console.log(req.body);
-  res.send(req.body);
+exports.enquire = async function(req, res, next) {
+  let houseEmail;
+  try {
+    const house = await House.findById(req.params.id).populate("user");
+    houseEmail = house.user.email;
+  } catch (err) {
+    next(err);
+  }
+
+  // setup email service
+  var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+
+  const content = `
+    <div>
+      <p>${req.body.message}</p>
+      <h2>Please reply to this email to continue the conversation.</h2>
+    </div>
+  `;
+
+  // setup email data with unicode symbols
+  let mailOptions = {
+    from: '"Pai Housing" <glynlewington@gmail.com>', // sender address
+    to: houseEmail, // list of receivers
+    replyTo: req.user.email,
+    subject: "Someone is interested in your property.", // Subject line
+    text: req.body.message, // plain text body
+    html: content // html body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    console.log("Message sent: %s", info.messageId);
+    // Preview only available when sending through an Ethereal account
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+  });
+
+  res.redirect("/");
 };
