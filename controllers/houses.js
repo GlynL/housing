@@ -140,9 +140,29 @@ exports.enquire = async function(req, res, next) {
     next(err);
   }
 
+  const transport = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      type: "OAuth2",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASSWORD
+    }
+  });
+
+  transporter.set("oauth2_provision_cb", (user, renew, callback) => {
+    let accessToken = userTokens[user];
+    if (!accessToken) {
+      return callback(new Error("Unknown user"));
+    } else {
+      return callback(null, accessToken);
+    }
+  });
+
   // setup email service
   var transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "smtp.gmail.com",
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD
