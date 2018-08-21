@@ -161,7 +161,7 @@ exports.enquire = async function(req, res, next) {
 
   // setup email data with unicode symbols
   let mailOptions = {
-    from: '"Pai Housing" <glynlewington@gmail.com>', // sender address
+    from: '"Pai Housing" <glyn@paihousing.com>', // sender address
     to: houseEmail, // list of receivers
     replyTo: req.user.email,
     subject: "Someone is interested in your property.", // Subject line
