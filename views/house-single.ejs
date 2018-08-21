@@ -19,9 +19,9 @@
 
 <section class='container'>
       <% if (house.features) { %>
-      <div>
+      <div class='mb-3'>
         <% house.features.forEach(feature => { %>
-          <btn class='btn btn-outline-secondary'><%= feature %></btn>
+          <btn class='btn btn-outline-secondary mb-1'><%= feature %></btn>
         <% }) %>
       </div>
    <% } %>
@@ -32,12 +32,14 @@
   <% for (let key in house.gallery) { %>
     <div class='gallery__item'>
       <img class='img-fluid img-thumbnail thumbnail--preview gallery__thumbnail' data-id='<%= key %>' src='<%= house.gallery[key] %>'>
-      <span class='gallery__delete' data-id='<%= key %>' data-house='<%= house._id %>'>&times;</span>
+      <% if(currentUser.id === String(house.user)) { %>
+        <span class='gallery__delete' data-id='<%= key %>' data-house='<%= house._id %>'>&times;</span>
+      <% } %>
     </div>
   <% } %>
 </section>
 
-<section class='container'>
+<section class='container bg-light p-3 rounded'>
 
   <% if (currentUser) { %>
       <h2>Contact Property</h2>
@@ -49,7 +51,7 @@
         <button class='btn btn-primary'>Enquire</button>
       </form>
   <% } else { %>
-    <h2>You need to be logged in to contact property.</h2>
+    <h2 class='mb-3'>You need to be logged in to contact property.</h2>
     <a href="/user/login" class='btn btn-primary'>Login</a>
     <a href="/user/register" class='btn btn-secondary'>Register</a>
   <% } %>

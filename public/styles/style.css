@@ -2,9 +2,18 @@
   box-sizing: border-box;
 }
 
+p {
+  font-size: 1.1rem;
+}
+
 .btn.btn--block {
   display: block;
   margin-top: 5px;
+}
+
+.container {
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .showcase {
