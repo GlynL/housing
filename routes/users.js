@@ -34,10 +34,7 @@ router.post(
   passport.authenticate("local", {
     failureRedirect: "/user/login"
   }),
-  (req, res) => {
-    const page = req.session.redirectPage || "/";
-    res.redirect(page);
-  }
+  userControllers.authenticate
 );
 
 // logout

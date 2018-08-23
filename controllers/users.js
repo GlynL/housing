@@ -9,3 +9,8 @@ exports.logout = (req, res) => {
   const page = req.session.redirectPage || "/";
   res.redirect(page);
 };
+
+exports.authenticate = (req, res) => {
+  const page = req.session.redirectPage || "/";
+  res.redirect(page);
+};

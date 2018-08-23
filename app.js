@@ -12,6 +12,7 @@ const houseRoutes = require("./routes/houses");
 const userRoutes = require("./routes/users");
 const currentUser = require("./middleware/currentUser");
 const redirectPage = require("./middleware/redirectPage");
+const unless = require("./helpers/unless");
 
 //
 // --------- CONFIG ---------
@@ -62,13 +63,6 @@ mongoose.promise = Promise;
 
 // custom middleware
 app.use(currentUser);
-// https://stackoverflow.com/questions/27117337/exclude-route-from-express-middleware
-var unless = function(middleware, ...paths) {
-  return function(req, res, next) {
-    const pathCheck = paths.some(path => path === req.path);
-    pathCheck ? next() : middleware(req, res, next);
-  };
-};
 
 app.use(unless(redirectPage, "/user/login", "/user/register", "/user/logout"));
 
