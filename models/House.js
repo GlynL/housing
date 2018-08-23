@@ -15,6 +15,9 @@ const houseSchema = new Schema(
       type: String,
       required: true
     },
+    price: {
+      type: Number
+    },
     thumbnail: {
       url: {
         type: String

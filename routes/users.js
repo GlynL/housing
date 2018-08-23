@@ -18,7 +18,8 @@ router.post("/register", (req, res, next) => {
         next(err);
       }
       passport.authenticate("local")(req, res, function() {
-        res.redirect("/");
+        const page = req.session.redirectPage || "/";
+        res.redirect(page);
       });
     }
   );
@@ -31,10 +32,12 @@ router.get("/login", userControllers.login);
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/",
     failureRedirect: "/user/login"
   }),
-  (req, res) => {}
+  (req, res) => {
+    const page = req.session.redirectPage || "/";
+    res.redirect(page);
+  }
 );
 
 // logout

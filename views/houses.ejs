@@ -7,12 +7,15 @@
 </section>
 
 <section class='houses-list container'>
-  <% houses.forEach(house => { %>
+  <% houses.forEach(house => { 
+    let description = house.description.slice(0, 150);
+    description = description.slice(0, description.lastIndexOf(' '));
+  %>
     <div class="card houses-list__item" style="width: 18rem;">
       <img class="card-img-top" src="<%= house.thumbnail.url %>" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title"><%= house.name %></h5>
-        <p class="card-text"><%= house.description %></p>
+        <p class="card-text"><%= description %></p>
         <p><%= house.email %></p>
         <a href='/houses/<%= house._id %>' id='viewPropertyBtn' data-id='<%= house._id %>' data-name='<%= house.name %>' class="btn btn-primary">View Property</a> 
       </div>

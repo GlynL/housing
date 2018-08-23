@@ -3,8 +3,8 @@
 <section>
   <header class='jumbotron'>
     <h1 class='text-center'><%= house.name %></h1>
-       <p class='text-center'><%= house.bedrooms %> Bedroom | <%= house.bathrooms %> Bathroom</p>
-
+      <p class='text-center'><%= house.bedrooms %> Bedroom | <%= house.bathrooms %> Bathroom</p>
+      <p class='text-center'>฿<%= house.price %> / month</p>
     <img class='img-fluid img-thumbnail img__thumbnail' src='<%= house.thumbnail.url %>'>
 
     <% if (userHouse) { %>
@@ -32,7 +32,7 @@
   <% for (let key in house.gallery) { %>
     <div class='gallery__item'>
       <img class='img-fluid img-thumbnail thumbnail--preview gallery__thumbnail' data-id='<%= key %>' src='<%= house.gallery[key] %>'>
-      <% if(currentUser.id === String(house.user)) { %>
+      <% if(currentUser && currentUser.id === String(house.user)) { %>
         <span class='gallery__delete' data-id='<%= key %>' data-house='<%= house._id %>'>&times;</span>
       <% } %>
     </div>

@@ -6,5 +6,6 @@ exports.login = (req, res) =>
 
 exports.logout = (req, res) => {
   req.logout();
-  res.redirect("/");
+  const page = req.session.redirectPage || "/";
+  res.redirect(page);
 };

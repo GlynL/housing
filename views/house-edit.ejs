@@ -9,11 +9,15 @@
     <form action='/houses/<%= house._id %>?_method=PUT' method="POST" enctype="multipart/form-data">
       <div class='form-group'>
         <label for='name'>Property Name</label>
-        <input type='text' class='form-control' id='name' name='name' value='<%= house.name %>'>
+        <input type='text' class='form-control' id='name' name='name' value='<%= house.name %>' required>
       </div>
       <div class='form-group'>
         <label for='description'>Property Decription</label>
-        <textarea type='text' class='form-control' id='description' name='description'><%= house.description %></textarea>
+        <textarea type='text' class='form-control' id='description' name='description' required><%= house.description %></textarea>
+      </div>
+      <div class='form-group'>
+        <label for='price'>Monthly Price</label>
+        <input type='number' class='form-control' id='price' name='price' placeholder='Price in Baht per month.' value='<%= house.price %>' required></textarea>
       </div>
       <div class='form-group'>
         <img class='img-fluid img-thumbnail thumbnail--preview' src='<%= house.thumbnail.url %>'>
